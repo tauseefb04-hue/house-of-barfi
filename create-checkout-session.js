@@ -50,7 +50,20 @@ exports.handler = async (event) => {
       cancel_url: `${origin}/?canceled=true`,
       shipping_address_collection: {
         allowed_countries: ['US']
-      }
+      },
+      shipping_options: [
+        {
+          shipping_rate_data: {
+            type: 'fixed_amount',
+            fixed_amount: { amount: 1999, currency: 'usd' }, // $19.99 flat rate
+            display_name: 'USPS Priority Mail (2-3 business days)',
+            delivery_estimate: {
+              minimum: { unit: 'business_day', value: 2 },
+              maximum: { unit: 'business_day', value: 3 }
+            }
+          }
+        }
+      ]
     });
 
     return {
